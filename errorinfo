@@ -1,0 +1,3 @@
+ Missing key/value separator; Expected an equals sign ("=") to mark the beginning of the attribute value
+
+这个是写 tf 测试的过程中， 一个 map 里面应该不能在嵌套一个map  或者复杂的map/set(map), 把他拆解开就可以了。
