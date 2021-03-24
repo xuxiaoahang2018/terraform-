@@ -1,3 +1,19 @@
  Missing key/value separator; Expected an equals sign ("=") to mark the beginning of the attribute value
 
-这个是写 tf 测试的过程中， 一个 map 里面应该不能在嵌套一个map  或者复杂的map/set(map), 把他拆解开就可以了。
+这个是写 tf 测试的过程中， 一个 map 里面应该不能在嵌套一个map  或者复杂的map/set(map), 把他拆解开就可以了。当然也要更改源字段设计，map 内尽量不要去嵌套复杂map了.
+
+
+
+After applying this step, the plan was not empty.
+
+这个是讲应用后的模版和读取的不一样，仔细对比一下两边的值，有的值是创建以后服务器设置回来的默认值，比如create_time 了等等，像这些只有创建才获取的值都加上参数Computed:true
+
+
+
+
+ImportStateVerify attributes not equivalent. Difference is shown below. Top is actual, bottom is expected.
+这个是测试你的资源import 的时候 你字段配置的值，有的没set 回去，仔细检查一下d.set 回去的时候有没有拼写错误，还有就是设置回去的对不对，可以通过下面的报错看出来是哪几个字段set 回去的不对.
+例如你的一个字段定义的是 []map[string]interfaces{}, 那么set 回去也要是这个，不能直接把类型里面的取出来set 回去，这样值不对。
+
+
+
