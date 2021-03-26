@@ -16,4 +16,6 @@ ImportStateVerify attributes not equivalent. Difference is shown below. Top is a
 例如你的一个字段定义的是 []map[string]interfaces{}, 那么set 回去也要是这个，不能直接把类型里面的取出来set 回去，这样值不对。
 
 
+The equals sign "=" indicates an argument definition, and must not be used when defining a block.
+这时候检查一下测试里面的字段是不是被用空格分开了， 例如 from_time 写成了 from time 少写下划线了，主要检查下字段。
 
