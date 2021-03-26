@@ -19,3 +19,45 @@ ImportStateVerify attributes not equivalent. Difference is shown below. Top is a
 The equals sign "=" indicates an argument definition, and must not be used when defining a block.
 这时候检查一下测试里面的字段是不是被用空格分开了， 例如 from_time 写成了 from time 少写下划线了，主要检查下字段。
 
+
+
+alicloud_log_etl.default: Attribute 'parameters.test1' not found
+像这种 一般就是定义的有个字段是 map[string]string 类型，在测试的时候类似下面这种，之前parameters 里面有个字段是 tags.key1, tags.key2 移除后要用 REMOVEKEY
+{
+				Config: testAccConfig(map[string]interface{}{
+					"tags": map[string]string{
+						"key1": "value1",
+						"Key2": "Value2",
+					},
+				}),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheck(map[string]string{
+						"tags.%":    "2",
+						"tags.key1": "value1",
+						"tags.Key2": "Value2",
+					}),
+				),
+			},
+
+			{
+				Config: testAccConfig(map[string]interface{}{
+					"tags": map[string]string{
+						"key1-update": "value1-update",
+						"Key2-update": "Value2-update",
+						"key3-new":    "value3-new",
+					},
+				}),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheck(map[string]string{
+						"tags.%":           "3",
+						"tags.key1-update": "value1-update",
+						"tags.Key2-update": "Value2-update",
+						"tags.key3-new":    "value3-new",
+						"tags.key1":        REMOVEKEY,
+						"tags.Key2":        REMOVEKEY,
+					}),
+				),
+			},
+  
+
+
