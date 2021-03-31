@@ -62,7 +62,7 @@ alicloud_log_etl.default: Attribute 'parameters.test1' not found
 
 
 
-字段设计的时候map 里面是可以包 slice 的， 就是写测试的时候，测试里面map 可能不让包除了string 或者 slice 类型的其他类型，这些还是要注意看terraform 的报错。
+字段设计的时候map 里value 应该是只能支持 string 类型的
 
 
 
