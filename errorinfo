@@ -6,9 +6,13 @@
 
 After applying this step, the plan was not empty.
 
-这个是讲应用后的模版和读取的不一样，仔细对比一下两边的值，有的值是创建以后服务器设置回来的默认值，比如create_time 了等等，像这些只有创建才获取的值都加上参数Computed:true
+1.这是当terraform 跑完apply 测试以后，他会在plan 一次看看值是否有变更，有变更，就说明哪些值没有Set 回去，导致plan 他还会apply，这种就是错误的，可以从这方面入手去debug/
+2.这个是讲应用后的模版和读取的不一样，仔细对比一下两边的值，有的值是创建以后服务器设置回来的默认值，比如create_time 了等等，像这些只有创建才获取的值都加上参数Computed:true
 
 
+
+Error: invalid character 'a' looking for beginning of value
+这种错误一般是json 格式化的报错，他不是terraform 的报错，应该是请求的时候，哪个err 没有记录直接返回了
 
 
 ImportStateVerify attributes not equivalent. Difference is shown below. Top is actual, bottom is expected.
